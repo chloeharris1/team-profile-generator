@@ -58,12 +58,12 @@ const nextStep = () => {
         {
         type: "list",
         message: "What would you like to do next?",
-        choices: ["Add an Engineer", "Add an Intern", "Finish"],
+        choices: ["Add an Engineer", "Add an Intern", "Quit"],
         name: "nextStepChoice"
         },
         // If statement for User choice
     ]).then(nextStepAns => {
-        if(nextStepAns.nextStepChoice === "Finish") {
+        if(nextStepAns.nextStepChoice === "Quit") {
             GenerateHtml.writeFooter()
             console.log("Goodbye")
         }
@@ -103,6 +103,43 @@ const addEngineer = () => {
     ]).then(engineerAns => {
         const newEngineer = new Engineer(engineerAns.engineerName, engineerAns.engineerID, engineerAns.engineerEmail, engineerAns.engineerGitHub)
         engineerArr.push(newEngineer)
+        // Ask User if they want to add another Engineer
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "Would you like to add another engineer?",
+                choices: ["Yes", "No"],
+                name: "engineerChoice",
+            }
+            // If 'yes', start add Engineer prompt again
+        ]).then(engineerChoiceAns => {
+            if (engineerChoiceAns.engineerChoice === "Yes") {
+                addEngineer()
+            }
+            // If 'no', write Engineer array to HTML
+            if (engineerChoiceAns.engineerChoice === "No") {
+                GenerateHtml.writeEngineer(engineerArr)
+                engineerArr = []
+                // Ask User what they want to do next
+                inquirer.prompt([
+                    {
+                        type: "list",
+                        message: "What would you like to do?",
+                        choices: ["Add an Intern", "Quit"],
+                        name: "endEngineer"
+                    }
+                    // If User selects add an Intern, start Intern prompt. If User selects quit, generate HTML 
+                ]).then(endEngineerAns => {
+                    if (endEngineerAns.endEngineer === "Quit") {
+                        GenerateHtml.writeFooter()
+                        console.log("Goodbye")
+                    }
+                    if (endEngineerAns.endEngineer === "Add an Intern") {
+                        addIntern()
+                    }
+                })
+            }
+        })
     })
 }
 
