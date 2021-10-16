@@ -19,9 +19,9 @@ let internArr = []
 const start =() => {
     inquirer.prompt([
         {
-      type: "input",
-      message: "Enter the team manager’s name",
-      name: "managerName" 
+        type: "input",
+        message: "Enter the team manager’s name",
+        name: "managerName" 
         },
         {
         type: "input",
@@ -56,10 +56,10 @@ start()
 const nextStep = () => {
     inquirer.prompt([
         {
-            type: "list",
-            message: "What would you like to do next?",
-            choices: ["Add an Engineer", "Add an Intern", "Finish"],
-            name: "nextStepChoice"
+        type: "list",
+        message: "What would you like to do next?",
+        choices: ["Add an Engineer", "Add an Intern", "Finish"],
+        name: "nextStepChoice"
         },
         // If statement for User choice
     ]).then(nextStepAns => {
@@ -76,6 +76,62 @@ const nextStep = () => {
     })
 }
 
-// Engineer Input, push User input to Engineer Array 
+// Inquirer Prompt, Engineer Input
+const addEngineer = () => {
+    inquirer.prompt([
+        {
+        type: "input",
+        message: "Enter engineer's name",
+        name: "engineerName",
+        },
+        {
+        type: "input",
+        message: "Enter their employee id",
+        name: "engineerID",
+        },
+        {
+        type: "input",
+        message: "Enter their email address",
+        name: "engineerEmail",
+        },
+        {
+        type: "input",
+        message: "Enter their GitHub username",
+        name: "engineerGitHub",
+        }
+    // Push User input to Engineer Array 
+    ]).then(engineerAns => {
+        const newEngineer = new Engineer(engineerAns.engineerName, engineerAns.engineerID, engineerAns.engineerEmail, engineerAns.engineerGitHub)
+        engineerArr.push(newEngineer)
+    })
+}
 
-// Intern Input, push User input to Intern Array
+// Inquirer Prompt, Intern Input
+const addIntern = () => {
+    inquirer.prompt([
+        {
+        type: "input",
+        message: "Enter intern's name",
+        name: "internName",
+        },
+        {
+        type: "input",
+        message: "Enter their employee id",
+        name: "internID",
+        },
+        {
+        type: "input",
+        message: "Enter their email address",
+        name: "internEmail",
+        },
+        {
+        type: "input",
+        message: "Enter their school",
+        name: "internSchool",
+        }
+    // Push User input to Intern Array 
+    ]).then(internAns => {
+        const newIntern = new Intern(internAns.internName, internAns.internID, internAns.internEmail, internAns.internSchool)
+        internArr.push(newIntern)
+    })
+}
