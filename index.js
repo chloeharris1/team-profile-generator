@@ -170,5 +170,42 @@ const addIntern = () => {
     ]).then(internAns => {
         const newIntern = new Intern(internAns.internName, internAns.internID, internAns.internEmail, internAns.internSchool)
         internArr.push(newIntern)
+        // Ask User if they want to add another Intern
+        inquirer.prompt([
+            {
+                type: "list",
+                message: "Would you like to add another intern?",
+                choices: ["Yes", "No"],
+                name: "internChoice"
+            }
+           // If 'yes', start add Intern prompt again
+        ]).then(internChoiceAns =>{
+            if (internChoiceAns.internChoice === "Yes") {
+                addIntern()
+            }
+            // If 'no', write Intern array to HTML
+            if (internChoiceAns.internChoice === "No") {
+                GenerateHtml.writeIntern(internArr)
+                internArr = []
+                // Ask User what they want to do next
+                inquirer.prompt([
+                    {
+                        type: "list",
+                        message: "What would you like to do?",
+                        choices: ["Enter an Engineer", "Quit"],
+                        name: "endIntern"
+                    }
+                    // If User selects add an Engineer, start Engineer prompt. If User selects quit, generate HTML 
+                ]).then(endInternAns =>{
+                    if (endInternAns.endIntern === "Enter an Engineer") {
+                        addEngineer()
+                    }
+                    if (endInternAns.endIntern === "Quit") {
+                        GenerateHtml.writeFooter()
+                        console.log("Goodbye")
+                    }
+                })
+            }
+        })
     })
-}
+}    
