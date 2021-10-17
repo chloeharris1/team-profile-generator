@@ -8,7 +8,7 @@ const Engineer = require("./lib/Engineer")
 const Intern = require("./lib/Intern")
 
 // Require Generate HTML
-const GenerateHtml = require("./lib/generateHTML")
+const GenerateHtml = require("./util/generateHtml")
 
 // Create arrays to store user input 
 let managerArr = []
@@ -44,7 +44,7 @@ const start =() => {
         const newManager = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNumber)
         managerArr.push(newManager)
         // Write to HTML
-        GenerateHtml.writeManager(managerArr)
+        GenerateHtml.generateTeam(managerArr)
         // Proceed to next step
         nextStep()
     })
@@ -119,7 +119,7 @@ const addEngineer = () => {
             }
             // If 'no', write Engineer array to HTML
             if (engineerChoiceAns.engineerChoice === "No") {
-                GenerateHtml.writeEngineer(engineerArr)
+                GenerateHtml.generateTeam(engineerArr)
                 engineerArr = []
                 // Ask User what they want to do next
                 inquirer.prompt([
@@ -186,7 +186,7 @@ const addIntern = () => {
             }
             // If 'no', write Intern array to HTML
             if (internChoiceAns.internChoice === "No") {
-                GenerateHtml.writeIntern(internArr)
+                GenerateHtml.generateTeam(internArr)
                 internArr = []
                 // Ask User what they want to do next
                 inquirer.prompt([
