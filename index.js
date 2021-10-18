@@ -9,6 +9,7 @@ const Intern = require("./lib/Intern")
 
 // Require Generate HTML
 const GenerateHtml = require("./util/generateHtml")
+const generateHtml = require("./util/generateHtml")
 
 // Create arrays to store user input 
 let managerArr = []
@@ -65,7 +66,7 @@ const nextStep = () => {
         // If statement for User choice
     ]).then(nextStepAns => {
         if(nextStepAns.nextStepChoice === "Quit") {
-            GenerateHtml.writeFooter()
+            GenerateHtml.generateTeam()
             console.log("Goodbye")
         }
         if(nextStepAns.nextStepChoice === "Add an Engineer") {
@@ -132,7 +133,7 @@ const addEngineer = () => {
                     // If User selects add an Intern, start Intern prompt. If User selects quit, generate HTML 
                 ]).then(endEngineerAns => {
                     if (endEngineerAns.endEngineer === "Quit") {
-                        GenerateHtml.writeFooter()
+                        GenerateHtml.generateTeam()
                         console.log("Goodbye")
                     }
                     if (endEngineerAns.endEngineer === "Add an Intern") {
@@ -202,11 +203,23 @@ const addIntern = () => {
                         addEngineer()
                     }
                     if (endInternAns.endIntern === "Quit") {
-                        GenerateHtml.writeFooter()
+                        GenerateHtml.generateTeam()
                         console.log("Goodbye")
                     }
                 })
             }
         })
     })
-}    
+} 
+
+
+// const init = () => {
+//     promptUser()
+//     .then((response) => fs.writeFileSync('./dist/README.md', generateHtml(response)))
+//     .then (() => console.log('Successfully wrote to index.html'))
+//     .catch(err => console.log(err))
+// };
+// init();
+// generateHtml(managerArr)
+// generateHtml(engineerArr)
+// generateHtml(internArr)

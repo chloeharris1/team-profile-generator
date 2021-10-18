@@ -1,7 +1,5 @@
 const fs = require("fs")
 
-// const Index = require("./index")
-
 // create the team
 const generateTeam = team => {
 
@@ -10,8 +8,8 @@ const generateTeam = team => {
         return `
         <div class="card employee-card">
         <div class="card-header">
-            <h2 class="card-title">${manager.getName()}</h2>
-            <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${manager.getRole()}</h3>
+            <h2 class="card-title">${manager.getName(managerArr[0])}</h2>
+            <h3 class="card-title"><i class="fas fa-mug-hot mr-2"></i>${manager.getRole(managerArr)}</h3>
         </div>
         <div class="card-body">
             <ul class="list-group">
@@ -21,7 +19,13 @@ const generateTeam = team => {
             </ul>
         </div>
     </div>
-        `;
+        `,
+        // Console Log errors
+        function(error) {
+            if (error) {
+                console.log(error) 
+            }
+        }
     };
 
     // create the html for engineers
@@ -40,7 +44,13 @@ const generateTeam = team => {
         </ul>
     </div>
 </div>
-        `;
+        `,
+        // Console Log errors
+        function(error) {
+            if (error) {
+                console.log(error)
+            }
+        }
     };
 
     // create the html for interns
@@ -59,7 +69,13 @@ const generateTeam = team => {
         </ul>
     </div>
 </div>
-        `;
+        `,
+        // Console Log errors
+        function(error) {
+            if (error) {
+                console.log(error)
+            }
+        }
     };
 
     const html = [];
@@ -121,6 +137,6 @@ module.exports = team => {
     `;
 };
 
-module.exports = {
-    generateTeam 
-}
+// module.exports = {
+//     generateTeam
+// }
