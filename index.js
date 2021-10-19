@@ -9,7 +9,6 @@ const Intern = require("./lib/Intern")
 
 // Require Generate HTML
 const GenerateHtml = require("./util/generateHtml")
-const generateHtml = require("./util/generateHtml")
 
 // Create arrays to store user input 
 let managerArr = []
@@ -45,7 +44,7 @@ const start =() => {
         const newManager = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNumber)
         managerArr.push(newManager)
         // Write to HTML
-        GenerateHtml.generateTeam(managerArr)
+        // GenerateHtml.generateTeam(managerArr)
         // Proceed to next step
         nextStep()
     })
@@ -66,7 +65,7 @@ const nextStep = () => {
         // If statement for User choice
     ]).then(nextStepAns => {
         if(nextStepAns.nextStepChoice === "Quit") {
-            GenerateHtml.generateTeam()
+            // GenerateHtml.writeFooter()
             console.log("Goodbye")
         }
         if(nextStepAns.nextStepChoice === "Add an Engineer") {
@@ -120,7 +119,7 @@ const addEngineer = () => {
             }
             // If 'no', write Engineer array to HTML
             if (engineerChoiceAns.engineerChoice === "No") {
-                GenerateHtml.generateTeam(engineerArr)
+                // GenerateHtml.generateTeam(engineerArr)
                 engineerArr = []
                 // Ask User what they want to do next
                 inquirer.prompt([
@@ -133,7 +132,7 @@ const addEngineer = () => {
                     // If User selects add an Intern, start Intern prompt. If User selects quit, generate HTML 
                 ]).then(endEngineerAns => {
                     if (endEngineerAns.endEngineer === "Quit") {
-                        GenerateHtml.generateTeam()
+                        // GenerateHtml.writeFooter()
                         console.log("Goodbye")
                     }
                     if (endEngineerAns.endEngineer === "Add an Intern") {
@@ -187,7 +186,7 @@ const addIntern = () => {
             }
             // If 'no', write Intern array to HTML
             if (internChoiceAns.internChoice === "No") {
-                GenerateHtml.generateTeam(internArr)
+                // GenerateHtml.generateTeam(internArr)
                 internArr = []
                 // Ask User what they want to do next
                 inquirer.prompt([
@@ -203,23 +202,11 @@ const addIntern = () => {
                         addEngineer()
                     }
                     if (endInternAns.endIntern === "Quit") {
-                        GenerateHtml.generateTeam()
+                        // GenerateHtml.writeFooter()
                         console.log("Goodbye")
                     }
                 })
             }
         })
     })
-} 
-
-
-// const init = () => {
-//     promptUser()
-//     .then((response) => fs.writeFileSync('./dist/README.md', generateHtml(response)))
-//     .then (() => console.log('Successfully wrote to index.html'))
-//     .catch(err => console.log(err))
-// };
-// init();
-// generateHtml(managerArr)
-// generateHtml(engineerArr)
-// generateHtml(internArr)
+}    
