@@ -66,7 +66,7 @@ To run the tests for this application, enter the following command in the termin
   ```
   npm run test
   ```
-  <br /> <br />
+  <br /> 
 
 ## Contributing
 
