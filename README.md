@@ -52,7 +52,8 @@ https://watch.screencastify.com/v/VtStd2paLE61joJOnAXH
 
 Team Profile Webpage:
 
-![team-profile](https://user-images.githubusercontent.com/89039793/138016983-ddd52161-3953-467c-9969-4b7ead8b6ad5.PNG)
+![team-profile](https://user-images.githubusercontent.com/89039793/138017081-61347387-0632-4f5b-ade7-af6a7f8c5af8.PNG)
+
 
 
 Tests passing: 
