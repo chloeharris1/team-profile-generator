@@ -72,7 +72,7 @@ To run the tests for this application, enter the following command in the termin
 
 If you'd like to contact me, please reach out using the contact information below.
 
-## Questions?
+## Questions
 
 If you have any questions about the project, contact me at: 
 chloe.a.harris17@gmail.com <br />
