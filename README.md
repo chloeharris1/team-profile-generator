@@ -50,7 +50,8 @@ Once the application runs, it will generate an index.html file in the "dist" fol
 
 ## Screenshot
 
-Command line interface:
+Team Profile Webpage:
+
 
 
 Tests passing: 
