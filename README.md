@@ -46,7 +46,7 @@ Once the application runs, it will generate an index.html file in the "dist" fol
 
 ## Demo
 
-
+https://watch.screencastify.com/v/VtStd2paLE61joJOnAXH
 
 ## Screenshot
 
