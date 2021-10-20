@@ -64,7 +64,7 @@ Tests passing:
 To run the tests for this application, enter the following command in the terminal:
 
   ```
-  npm run test
+  npm test
   ```
   <br /> 
 
