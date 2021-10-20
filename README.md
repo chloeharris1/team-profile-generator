@@ -38,9 +38,9 @@ Next, install the dependencies with command:
 ```
 npm i
 ```
-When you want to run the application, from the root folder, type the below into your terminal command line:
+When you want to run the application, type the below into your terminal command line:
 ```
-node index
+node index.js
 ```
 Once the application runs, it will generate an index.html file in the "dist" folder.
 
