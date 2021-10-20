@@ -52,13 +52,12 @@ https://watch.screencastify.com/v/VtStd2paLE61joJOnAXH
 
 Team Profile Webpage:
 
+![team-profile](https://user-images.githubusercontent.com/89039793/138016983-ddd52161-3953-467c-9969-4b7ead8b6ad5.PNG)
 
 
 Tests passing: 
 
 ![passingtests](https://user-images.githubusercontent.com/89039793/137832235-e99c72ad-9985-4a90-88af-7c0c1c0a3eee.PNG)
-
-Completed HTML file:
 
 ## Tests
 To run the tests for this application, enter the following command in the terminal:
