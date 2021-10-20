@@ -25,6 +25,7 @@ To install all the dependencies, use the command below:
 ```
 npm i
 ```
+Install the following: Node.js, Jest & Inquirer packages
 <br />
 
 ## Usage
@@ -57,23 +58,8 @@ Tests passing:
 
 Completed HTML file:
 
-## Directory Structure
-```md
-.
-├── __tests__/             //jest tests
-│   ├── Employee.test.js
-│   ├── Engineer.test.js
-│   ├── Intern.test.js
-│   └── Manager.test.js
-├── dist/                  // rendered output (HTML)       
-├── lib/                   // classes
-├── .gitignore             // indicates which folders and files Git should ignore
-├── index.js               // runs the application
-└── package.json           
-```
-
 ## Tests
-To run the tests for this application, enter the following command in the terminal from the root directory:
+To run the tests for this application, enter the following command in the terminal:
 
   ```
   npm run test
@@ -88,5 +74,5 @@ If you'd like to contact me, please reach out using the contact information belo
 
 If you have any questions about the project, contact me at: 
 chloe.a.harris17@gmail.com <br />
-Check out the rest of my work at: 
+Check out my GitHub profile at: 
 [chloeharris1](https://github.com/chloeharris1/) <br />

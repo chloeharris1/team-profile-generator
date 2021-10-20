@@ -1,212 +1,130 @@
-// Required Packages
-const inquirer = require("inquirer")
-const fs = require("fs")
+// Required packages
+const inquirer = require('inquirer');
 
-// Require Employee classes 
-const Manager = require("./lib/Manager")
-const Engineer = require("./lib/Engineer")
-const Intern = require("./lib/Intern")
+// Importing employee class files
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager');
+const team = require('./util/generateHtml');
+const fs = require('fs');
 
-// Require Generate HTML
-const GenerateHtml = require("./util/generateHtml")
+// Employees array
+const employees = []
 
-// Create arrays to store user input 
-let managerArr = []
-let engineerArr = []
-let internArr = []
-
-
-// Inquirer Prompt, Manager Info
-const start =() => {
+// Start prompts, request manager information 
+function startManager() {
+    inquirer.prompt([
+       {
+            type: 'input',
+            name: 'name',
+            message: 'Enter the team manager\’s name',  
+       }, 
+       {
+            type: 'input',
+            name: 'id',
+            message: 'Enter their employee id',  
+       },
+       {
+            type: 'input',
+            name: 'email',
+            message: 'Enter their email address',  
+       },
+       {
+            type: 'input',
+            name: 'office',
+            message: 'Enter their office number',  
+       },
+    // Push manager information into Employees array
+    ]).then(({name, id, email, office}) => {
+        employees.push(new Manager(name, id, email, office));
+        menu();
+    });
+};
+// Give user the option to continue building their team
+function menu() {
     inquirer.prompt([
         {
-        type: "input",
-        message: "Enter the team manager’s name",
-        name: "managerName" 
-        },
-        {
-        type: "input",
-        message: "Enter their employee id",
-        name: "managerID" 
-        },
-        {
-        type: "input",
-        message: "Enter their email address",
-        name: "managerEmail" 
-        },
-        {
-        type: "input",
-        message: "Enter their office number",
-        name: "officeNumber" 
-        }
-    // Push User input to Manager Array 
-    ]).then(managerAns => {
-        const newManager = new Manager(managerAns.managerName, managerAns.managerID, managerAns.managerEmail, managerAns.officeNumber)
-        managerArr.push(newManager)
-        // Write to HTML
-        // GenerateHtml.generateTeam(managerArr)
-        // Proceed to next step
-        nextStep()
-    })
-}
-
-// Start Inquirer Prompt 
-start()
-
-// Provide User a menu with the option to add an engineer or an intern or to finish building their team using nextStep
-const nextStep = () => {
+            type: 'list',
+            name: 'menu',
+            message: 'What would you like to do next?',
+            choices: ['Add Engineer', 'Add Intern', 'Finish building team'],  
+       },  
+    ]).then(answers => {
+        switch (answers.menu) {
+            case 'Add Engineer':
+                getEngineer();
+                break;
+            case 'Add Intern':
+                getIntern();
+                break;
+            default: 
+                init();
+                break;
+        };
+    });
+};
+// Add Engineer(s)
+function getEngineer() {
     inquirer.prompt([
         {
-        type: "list",
-        message: "What would you like to do next?",
-        choices: ["Add an Engineer", "Add an Intern", "Quit"],
-        name: "nextStepChoice"
+            type: 'input',
+            name: 'name',
+            message: 'Enter engineer\'s name', 
         },
-        // If statement for User choice
-    ]).then(nextStepAns => {
-        if(nextStepAns.nextStepChoice === "Quit") {
-            // GenerateHtml.writeFooter()
-            console.log("Goodbye")
-        }
-        if(nextStepAns.nextStepChoice === "Add an Engineer") {
-            addEngineer()
-        }
-        if(nextStepAns.nextStepChoice === "Add an Intern") {
-            addIntern()
-        }
-    })
-}
-
-// Inquirer Prompt, Engineer Input
-const addEngineer = () => {
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Enter the engineer\'s employee id',  
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'Enter the engineer\'s email',  
+        },
+        {
+            type: 'input',
+            name: 'github',
+            message: 'Enter the engineer\'s github username',  
+        },
+    // Push engineer information into Employees array
+    ]).then(({name, id, email, github}) => {
+        employees.push(new Engineer(name, id, email, github));
+        menu();  
+    });
+};
+// Add Intern(s)
+function getIntern() {
     inquirer.prompt([
         {
-        type: "input",
-        message: "Enter engineer's name",
-        name: "engineerName",
+            type: 'input',
+            name: 'name',
+            message: 'Enter the intern\'s name',  
         },
         {
-        type: "input",
-        message: "Enter their employee id",
-        name: "engineerID",
+            type: 'input',
+            name: 'id',
+            message: 'Enter the intern\'s employee id',  
         },
         {
-        type: "input",
-        message: "Enter their email address",
-        name: "engineerEmail",
+            type: 'input',
+            name: 'email',
+            message: 'Enter the intern\'s email',  
         },
         {
-        type: "input",
-        message: "Enter their GitHub username",
-        name: "engineerGitHub",
-        }
-    // Push User input to Engineer Array 
-    ]).then(engineerAns => {
-        const newEngineer = new Engineer(engineerAns.engineerName, engineerAns.engineerID, engineerAns.engineerEmail, engineerAns.engineerGitHub)
-        engineerArr.push(newEngineer)
-        // Ask User if they want to add another Engineer
-        inquirer.prompt([
-            {
-                type: "list",
-                message: "Would you like to add another engineer?",
-                choices: ["Yes", "No"],
-                name: "engineerChoice",
-            }
-            // If 'yes', start add Engineer prompt again
-        ]).then(engineerChoiceAns => {
-            if (engineerChoiceAns.engineerChoice === "Yes") {
-                addEngineer()
-            }
-            // If 'no', write Engineer array to HTML
-            if (engineerChoiceAns.engineerChoice === "No") {
-                // GenerateHtml.generateTeam(engineerArr)
-                engineerArr = []
-                // Ask User what they want to do next
-                inquirer.prompt([
-                    {
-                        type: "list",
-                        message: "What would you like to do?",
-                        choices: ["Add an Intern", "Quit"],
-                        name: "endEngineer"
-                    }
-                    // If User selects add an Intern, start Intern prompt. If User selects quit, generate HTML 
-                ]).then(endEngineerAns => {
-                    if (endEngineerAns.endEngineer === "Quit") {
-                        // GenerateHtml.writeFooter()
-                        console.log("Goodbye")
-                    }
-                    if (endEngineerAns.endEngineer === "Add an Intern") {
-                        addIntern()
-                    }
-                })
-            }
-        })
-    })
-}
+            type: 'input',
+            name: 'school',
+            message: 'Enter the intern\'s school',  
+        },
+    // Push intern information into Employees array
+    ]).then(({name, id, email, school}) => {
+        employees.push(new Intern(name, id, email, school));
+        menu();  
+    });
+};
 
-// Inquirer Prompt, Intern Input
-const addIntern = () => {
-    inquirer.prompt([
-        {
-        type: "input",
-        message: "Enter intern's name",
-        name: "internName",
-        },
-        {
-        type: "input",
-        message: "Enter their employee id",
-        name: "internID",
-        },
-        {
-        type: "input",
-        message: "Enter their email address",
-        name: "internEmail",
-        },
-        {
-        type: "input",
-        message: "Enter their school",
-        name: "internSchool",
-        }
-    // Push User input to Intern Array 
-    ]).then(internAns => {
-        const newIntern = new Intern(internAns.internName, internAns.internID, internAns.internEmail, internAns.internSchool)
-        internArr.push(newIntern)
-        // Ask User if they want to add another Intern
-        inquirer.prompt([
-            {
-                type: "list",
-                message: "Would you like to add another intern?",
-                choices: ["Yes", "No"],
-                name: "internChoice"
-            }
-           // If 'yes', start add Intern prompt again
-        ]).then(internChoiceAns =>{
-            if (internChoiceAns.internChoice === "Yes") {
-                addIntern()
-            }
-            // If 'no', write Intern array to HTML
-            if (internChoiceAns.internChoice === "No") {
-                // GenerateHtml.generateTeam(internArr)
-                internArr = []
-                // Ask User what they want to do next
-                inquirer.prompt([
-                    {
-                        type: "list",
-                        message: "What would you like to do?",
-                        choices: ["Enter an Engineer", "Quit"],
-                        name: "endIntern"
-                    }
-                    // If User selects add an Engineer, start Engineer prompt. If User selects quit, generate HTML 
-                ]).then(endInternAns =>{
-                    if (endInternAns.endIntern === "Enter an Engineer") {
-                        addEngineer()
-                    }
-                    if (endInternAns.endIntern === "Quit") {
-                        // GenerateHtml.writeFooter()
-                        console.log("Goodbye")
-                    }
-                })
-            }
-        })
-    })
-}    
+// Write Employee array data to HTML file
+function init() {
+    fs.writeFile('./dist/Employees.html', team(employees), (err) => err ? console.log(err) : console.log('Success!'));
+};
+
+startManager();
